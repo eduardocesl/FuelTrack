@@ -1,4 +1,6 @@
-const vehicles = [
+const repository = require('../repositories/vehicles.repository');
+
+let vehicles = [
     { 
         id: 1,
         brand: 'Chevrolet',
@@ -9,32 +11,95 @@ const vehicles = [
 ];
 
 const getAllVehicles = () => {
-    return vehicles;
+    return repository.getAll();
 };
 
-const createVehicle = ({
+const createVehicle = (data) => {
+  const vehicles = repository.getAll();
+
+  const { brand, model, manufactureYear, modelYear } = data;
+
+  const newVehicle = {
+    id: vehicles.length > 0
+      ? Math.max(...vehicles.map(v => v.id)) + 1
+      : 1,
     brand,
     model,
     manufactureYear,
     modelYear
-}) => {
-    if (!brand || !model || !manufactureYear || !modelYear) {
-        throw new Error('All fields are required');
-    }
+  };
 
-    const newVehicle = {
-        id: vehicles.length + 1,
-        brand,
-        model,
-        manufactureYear,
-        modelYear
-    };
+  vehicles.push(newVehicle);
 
-    vehicles.push(newVehicle);
-    return newVehicle;
+  repository.saveAll(vehicles);
+
+  return newVehicle;
+};
+
+const deleteVehicle = (id) => {
+  const vehicles = repository.getAll();
+
+  const vehicle = vehicles.find(v => v.id === Number(id));
+
+  if (!vehicle) {
+    throw new Error('Vehicle not found');
+  }
+
+  const updated = vehicles.filter(
+    v => v.id !== Number(id)
+  );
+
+  repository.saveAll(updated);
+
+  return vehicle;
+};
+
+const updateVehicle = (id, data) => {
+  const vehicles = repository.getAll();
+
+  const vehicle = vehicles.find(v => v.id === Number(id));
+
+  if (!vehicle) {
+    throw new Error('Vehicle not found');
+  }
+
+  const {
+    brand,
+    model,
+    manufactureYear,
+    modelYear
+  } = data;
+
+  if (!brand || !model || !manufactureYear || !modelYear) {
+    throw new Error('All fields are required');
+  }
+
+  vehicle.brand = brand;
+  vehicle.model = model;
+  vehicle.manufactureYear = manufactureYear;
+  vehicle.modelYear = modelYear;
+
+  repository.saveAll(vehicles);
+
+  return vehicle;
+};
+
+
+
+const getVehicleById = (id) => {
+  const vehicles = repository.getAll();
+
+  const vehicle = vehicles.find(
+    v => v.id === Number(id)
+  );
+
+  return vehicle;
 };
 
 module.exports = {
     getAllVehicles,
-    createVehicle
+    createVehicle,
+    getVehicleById,
+    deleteVehicle,
+    updateVehicle
 };
