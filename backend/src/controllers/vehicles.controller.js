@@ -10,7 +10,7 @@ const getVehicles = (req, res) => {
   return res.json(getAllVehicles());
 };
 
-const createVehicleController = (req, res) => {
+const createVehicleController = (req, res, next) => {
   try {
     const vehicle = createVehicle(req.body);
 

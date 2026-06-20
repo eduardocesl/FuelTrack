@@ -2,22 +2,8 @@
   {
     "id": 1,
     "brand": "Chevrolet",
-    "model": "Onix Plus Turbo Manual",
+    "model": "Onix Plus",
     "manufactureYear": 2022,
     "modelYear": 2023
-  },
-  {
-    "id": 2,
-    "brand": "BMW",
-    "model": "320i",
-    "manufactureYear": 2023,
-    "modelYear": 2024
-  },
-  {
-    "id": 3,
-    "brand": "BYD",
-    "model": "Dolphin",
-    "manufactureYear": 2024,
-    "modelYear": 2025
   }
 ]
