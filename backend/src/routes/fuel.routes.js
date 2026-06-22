@@ -1,9 +1,14 @@
 const express = require('express');
+
+const {
+  getFuelings,
+  createFueling
+} = require('../controllers/fuelings.controller');
+
 const router = express.Router();
 
-// GET /fuel
-router.get('/', (req, res) => {
-    res.json({ message: 'Rota de abastecimentos funcionando' });
-});
+router.get('/', getFuelings);
+
+router.post('/', createFueling);
 
 module.exports = router;

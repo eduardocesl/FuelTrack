@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "vehicleId": 1,
+    "date": "2026-06-22",
+    "fuelType": "Gasoline",
+    "liters": 40,
+    "totalCost": 250,
+    "odometer": 52340
+  }
+]
