@@ -5,6 +5,14 @@ const getFuelings = () => {
   return repository.getAllFuelings();
 };
 
+const getFuelingById = (id) => {
+  const fuelings = repository.getAllFuelings();
+
+  return fuelings.find(
+    fueling => fueling.id === Number(id)
+  );
+};
+
 const createFueling = (data) => {
   const fuelings = repository.getAllFuelings();
 
@@ -38,7 +46,60 @@ const createFueling = (data) => {
   return newFueling;
 };
 
+const deleteFueling = (id) => {
+  const fuelings = repository.getAllFuelings();
+
+  const fueling = fuelings.find(
+    f => f.id === Number(id)
+  );
+
+  if (!fueling) {
+    throw new Error('Fueling not found');
+  }
+
+  const updatedFuelings = fuelings.filter(
+    f => f.id !== Number(id)
+  );
+
+  repository.saveAllFuelings(updatedFuelings);
+
+  return fueling;
+};
+
+const updateFueling = (id, data) => {
+  const fuelings = repository.getAllFuelings();
+
+  const fueling = fuelings.find(
+    f => f.id === Number(id)
+  );
+
+  if (!fueling) {
+    throw new Error('Fueling not found');
+  }
+
+  const updatedFueling = {
+    ...fueling,
+    vehicleId: data.vehicleId,
+    date: data.date,
+    fuelType: data.fuelType,
+    liters: data.liters,
+    totalCost: data.totalCost,
+    odometer: data.odometer
+  };
+
+  const updatedFuelings = fuelings.map(
+    f => f.id === Number(id) ? updatedFueling : f
+  );
+
+  repository.saveAllFuelings(updatedFuelings);
+
+  return updatedFueling;
+};
+
 module.exports = {
   getFuelings,
-  createFueling
+  createFueling,
+  getFuelingById,
+  deleteFueling,
+  updateFueling
 };

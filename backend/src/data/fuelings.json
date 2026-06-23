@@ -4,8 +4,8 @@
     "vehicleId": 1,
     "date": "2026-06-22",
     "fuelType": "Gasoline",
-    "liters": 40,
-    "totalCost": 250,
-    "odometer": 52340
+    "liters": 50,
+    "totalCost": 300,
+    "odometer": 54000
   }
 ]
