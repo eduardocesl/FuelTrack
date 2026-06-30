@@ -96,10 +96,39 @@ const updateFueling = (id, data) => {
   return updatedFueling;
 };
 
+const getFuelingsByVehicleId = (vehicleId) => {
+  const fuelings = repository.getAllFuelings();
+
+  return fuelings.filter(
+    fueling => fueling.vehicleId === Number(vehicleId)
+  );
+};
+
+const getSortedFuelingsByVehicleId = (vehicleId) => {
+  const fuelings  = getFuelingsByVehicleId(vehicleId);
+
+  return fuelings.sort(
+    (a, b) => a.odometer - b.odometer
+  );
+};
+
+const calculateAverageConsumption = (vehicleId) => {
+  const fuelings = getSortedFuelingsByVehicleId(vehicleId);
+
+  if (fuelings.length < 2) {
+    throw new Error(
+      'At least two fueling records are required to calculate average consumption.'
+    );
+  }
+};
+
 module.exports = {
   getFuelings,
   createFueling,
   getFuelingById,
   deleteFueling,
-  updateFueling
+  updateFueling,
+  getFuelingsByVehicleId,
+  getSortedFuelingsByVehicleId,
+  calculateAverageConsumption
 };

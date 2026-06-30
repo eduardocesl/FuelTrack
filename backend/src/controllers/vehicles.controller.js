@@ -6,6 +6,10 @@ const {
   updateVehicle
 } = require('../services/vehicles.service');
 
+const {
+  getFuelingsByVehicleId
+} = require('../services/fuelings.service');
+
 const getVehicles = (req, res) => {
   return res.json(getAllVehicles());
 };
@@ -71,10 +75,27 @@ const getVehicle = (req, res) => {
   return res.json(vehicle);
 };
 
+const getVehicleFuelings = (req, res) => {
+  const { id } = req.params;
+
+  const vehicle = getVehicleById(id);
+
+  if (!vehicle) {
+    return res.status(404).json({
+      message: 'Vehicle not found'
+    });
+  }
+
+  const fuelings = getFuelingsByVehicleId(id);
+
+  return res.json(fuelings);
+};
+
 module.exports = {
   getVehicles,
   createVehicle: createVehicleController,
   deleteVehicle: deleteVehicleController,
   updateVehicle: updateVehicleController,
-  getVehicle
+  getVehicle,
+  getVehicleFuelings
 };

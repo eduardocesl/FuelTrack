@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const validateRequiredFields = require('../middlewares/vehicles/validateVehicleSchema');
 
 const {
   getVehicles,
   getVehicle,
+  getVehicleFuelings,
   createVehicle,
   deleteVehicle,
   updateVehicle
@@ -12,6 +12,7 @@ const {
 const validateVehicleSchema = require('../middlewares/vehicles/validateVehicleSchema');
 
 router.get('/', getVehicles);
+router.get('/:id/fuelings', getVehicleFuelings);
 router.get('/:id', getVehicle);
 router.post('/', validateVehicleSchema, createVehicle);
 router.put('/:id', validateVehicleSchema, updateVehicle);
