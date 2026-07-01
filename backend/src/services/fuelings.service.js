@@ -120,6 +120,22 @@ const calculateAverageConsumption = (vehicleId) => {
       'At least two fueling records are required to calculate average consumption.'
     );
   }
+
+  const consumptions = [];
+
+  for (let i = 1; i < fuelings.length; i++) {
+    const previousFueling = fuelings[i - 1];
+
+    const currentFueling = fuelings[i];
+
+    const distance = 
+      currentFueling.odometer - previousFueling.odometer;
+
+    const consumption =
+      distance / currentFueling.liters;
+
+    consumptions.push(consumption);
+  }
 };
 
 module.exports = {
