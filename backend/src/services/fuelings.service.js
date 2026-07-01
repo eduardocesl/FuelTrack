@@ -105,7 +105,7 @@ const getFuelingsByVehicleId = (vehicleId) => {
 };
 
 const getSortedFuelingsByVehicleId = (vehicleId) => {
-  const fuelings  = getFuelingsByVehicleId(vehicleId);
+  const fuelings = getFuelingsByVehicleId(vehicleId);
 
   return fuelings.sort(
     (a, b) => a.odometer - b.odometer
@@ -136,6 +136,24 @@ const calculateAverageConsumption = (vehicleId) => {
 
     consumptions.push(consumption);
   }
+
+  const totalConsumption = consumptions.reduce(
+    (total, consumption) => total + consumption,
+    0
+  );
+
+  const averageConsumption = totalConsumption / consumptions.length;
+
+  return {
+    vehicleId: Number(vehicleId),
+    averageConsumption: Number(
+      averageConsumption.toFixed(2)
+    ),
+    fuelingsUsed: fuelings.length,
+    calculations: consumptions.length,
+    unit: 'km/L'
+  }
+
 };
 
 module.exports = {

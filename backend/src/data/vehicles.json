@@ -5,5 +5,12 @@
     "model": "Onix Plus",
     "manufactureYear": 2022,
     "modelYear": 2023
+  },
+  {
+    "id": 2,
+    "brand": "BMW",
+    "model": "320i",
+    "manufactureYear": 2024,
+    "modelYear": 2025
   }
 ]

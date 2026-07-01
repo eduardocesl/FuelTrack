@@ -5,6 +5,7 @@ const {
   getVehicles,
   getVehicle,
   getVehicleFuelings,
+  getVehicleConsumption,
   createVehicle,
   deleteVehicle,
   updateVehicle
@@ -13,6 +14,7 @@ const validateVehicleSchema = require('../middlewares/vehicles/validateVehicleSc
 
 router.get('/', getVehicles);
 router.get('/:id/fuelings', getVehicleFuelings);
+router.get('/:id/consumption', getVehicleConsumption);
 router.get('/:id', getVehicle);
 router.post('/', validateVehicleSchema, createVehicle);
 router.put('/:id', validateVehicleSchema, updateVehicle);
