@@ -156,6 +156,28 @@ const calculateAverageConsumption = (vehicleId) => {
 
 };
 
+const getVehicleStatistics = (vehicleId) => {
+  const fuelings = getFuelingsByVehicleId(vehicleId);
+
+  const totalLiters = fuelings.reduce(
+    (total, fueling) => total + fueling.liters,
+    0
+  );
+
+  const totalSpent = fuelings.reduce(
+    (total, fueling) => total + fueling.totalCost,
+    0
+  );
+
+  return {
+    vehicleId: Number(vehicleId),
+    fuelings: fuelings.length,
+    totalLiters: Number(totalLiters.toFixed(2)),
+    totalSpent: Number(totalSpent.toFixed(2))
+  };
+};
+
+
 module.exports = {
   getFuelings,
   createFueling,
@@ -164,5 +186,6 @@ module.exports = {
   updateFueling,
   getFuelingsByVehicleId,
   getSortedFuelingsByVehicleId,
-  calculateAverageConsumption
+  calculateAverageConsumption,
+  getVehicleStatistics
 };
