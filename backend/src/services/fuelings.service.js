@@ -177,6 +177,13 @@ const getVehicleStatistics = (vehicleId) => {
   };
 };
 
+const getVehicleDashboard = (vehicleId) => {
+  return {
+    statistics: getVehicleStatistics(vehicleId),
+    consumption: calculateAverageConsumption(vehicleId)
+  };
+}
+
 
 module.exports = {
   getFuelings,
@@ -187,5 +194,6 @@ module.exports = {
   getFuelingsByVehicleId,
   getSortedFuelingsByVehicleId,
   calculateAverageConsumption,
-  getVehicleStatistics
+  getVehicleStatistics,
+  getVehicleDashboard
 };
