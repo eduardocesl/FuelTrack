@@ -9,7 +9,8 @@ const {
 const {
   getFuelingsByVehicleId,
   calculateAverageConsumption,
-  getVehicleStatistics
+  getVehicleStatistics,
+  getVehicleDashboard
 } = require('../services/fuelings.service');
 
 const getVehicles = (req, res) => {
@@ -138,6 +139,29 @@ const getVehicleStatisticsController = (req, res) => {
   }
 };
 
+const getVehicleDashboardController = (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const vehicle = getVehicleById(id);
+
+    if (!vehicle) {
+      return res.status(404).json({
+        message: 'Vehicle not found'
+      });
+    }
+
+    const dashboard = getVehicleDashboard(id);
+
+    return res.json(dashboard);
+
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message
+    });
+  }
+};
+
 module.exports = {
   getVehicles,
   createVehicle: createVehicleController,
@@ -146,5 +170,6 @@ module.exports = {
   getVehicle,
   getVehicleFuelings,
   getVehicleConsumption,
-  getVehicleStatistics: getVehicleStatisticsController
+  getVehicleStatistics: getVehicleStatisticsController,
+  getVehicleDashboard: getVehicleDashboardController
 };

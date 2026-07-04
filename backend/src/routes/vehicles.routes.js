@@ -7,6 +7,7 @@ const {
   getVehicleFuelings,
   getVehicleConsumption,
   getVehicleStatistics,
+  getVehicleDashboard,
   createVehicle,
   deleteVehicle,
   updateVehicle
@@ -17,6 +18,7 @@ router.get('/', getVehicles);
 router.get('/:id/fuelings', getVehicleFuelings);
 router.get('/:id/consumption', getVehicleConsumption);
 router.get('/:id/statistics', getVehicleStatistics);
+router.get('/:id/dashboard', getVehicleDashboard);
 router.get('/:id', getVehicle);
 router.post('/', validateVehicleSchema, createVehicle);
 router.put('/:id', validateVehicleSchema, updateVehicle);
