@@ -178,11 +178,19 @@ const getVehicleStatistics = (vehicleId) => {
 };
 
 const getVehicleDashboard = (vehicleId) => {
+  let consumption = null;
+
+  try {
+    consumption = calculateAverageConsumption(vehicleId);
+  } catch (error) {
+    consumption = null;
+  }
+
   return {
     statistics: getVehicleStatistics(vehicleId),
-    consumption: calculateAverageConsumption(vehicleId)
+    consumption
   };
-}
+};
 
 
 module.exports = {
