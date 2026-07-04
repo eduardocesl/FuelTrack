@@ -2,6 +2,7 @@ const express = require('express');
 
 const {
   getFuelings,
+  getFuelTypes,
   createFueling,
   getFueling,
   deleteFueling,
@@ -15,6 +16,8 @@ const validateFuelingSchema = require(
 const router = express.Router();
 
 router.get('/', getFuelings);
+
+router.get('/types', getFuelTypes);
 
 router.get('/:id', getFueling);
 

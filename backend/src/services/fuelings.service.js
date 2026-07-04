@@ -1,8 +1,13 @@
 const repository = require('../repositories/fuelings.repository');
 const vehiclesRepository = require('../repositories/vehicles.repository');
+const FUEL_TYPES = require('../constants/fuelTypes');
 
 const getFuelings = () => {
   return repository.getAllFuelings();
+};
+
+const getFuelTypes = () => {
+  return FUEL_TYPES;
 };
 
 const getFuelingById = (id) => {
@@ -195,6 +200,7 @@ const getVehicleDashboard = (vehicleId) => {
 
 module.exports = {
   getFuelings,
+  getFuelTypes,
   createFueling,
   getFuelingById,
   deleteFueling,

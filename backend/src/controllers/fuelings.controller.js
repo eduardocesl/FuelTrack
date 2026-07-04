@@ -1,5 +1,6 @@
 const {
   getFuelings,
+  getFuelTypes,
   createFueling,
   getFuelingById,
   deleteFueling,
@@ -9,6 +10,12 @@ const {
 const getFuelingsController = (req, res) => {
   return res.json(
     getFuelings()
+  );
+};
+
+const getFuelTypesController = (req, res) => {
+  return res.json(
+    getFuelTypes()
   );
 };
 
@@ -73,6 +80,7 @@ const updateFuelingController = (req, res) => {
 
 module.exports = {
   getFuelings: getFuelingsController,
+  getFuelTypes: getFuelTypesController,
   createFueling: createFuelingController,
   getFueling: getFueling,
   deleteFueling: deleteFuelingController,

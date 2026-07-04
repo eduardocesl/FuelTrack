@@ -1,3 +1,4 @@
+const FUEL_TYPES = require('../constants/fuelTypes');
 const { z } = require('zod');
 
 const FuelingSchema = z.object({
@@ -5,12 +6,13 @@ const FuelingSchema = z.object({
 
   date: z.string(),
 
-  fuelType: z.enum([
-    'Gasoline',
-    'Ethanol',
-    'Diesel',
-    'CNG'
-  ]),
+fuelType: z.string().refine(
+  value => FUEL_TYPES.includes(value),
+  {
+    message: 'Invalid fuel type'
+  }
+),
+
 
   liters: z.number().positive(),
 
