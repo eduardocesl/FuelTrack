@@ -31,6 +31,14 @@ const createFueling = (data) => {
     throw new Error('Vehicle not found');
   }
 
+  const lastFueling = getLastFuelingByVehicleId(data.vehicleId);
+
+  validateOdometer(
+    data.odometer,
+    lastFueling,
+    'Odometer cannot be less than the last recorded fueling'
+  );
+
   const newFueling = {
     id: fuelings.length > 0
       ? Math.max(...fuelings.map(f => f.id)) + 1
@@ -82,6 +90,17 @@ const updateFueling = (id, data) => {
     throw new Error('Fueling not found');
   }
 
+  const previousFueling = getPreviousFueling(
+    data.vehicleId,
+    id
+  );
+
+  validateOdometer(
+  data.odometer,
+  previousFueling,
+  'Odometer cannot be less than the previous fueling'
+);
+
   const updatedFueling = {
     ...fueling,
     vehicleId: data.vehicleId,
@@ -113,8 +132,45 @@ const getSortedFuelingsByVehicleId = (vehicleId) => {
   const fuelings = getFuelingsByVehicleId(vehicleId);
 
   return fuelings.sort(
-    (a, b) => a.odometer - b.odometer
+  (a, b) => a.id - b.id
+);
+};
+
+const getLastFuelingByVehicleId = (vehicleId) => {
+  const fuelings = getSortedFuelingsByVehicleId(vehicleId);
+
+  if (fuelings.length === 0) {
+    return null;
+  }
+
+  return fuelings[fuelings.length - 1];
+};
+
+const getPreviousFueling = (vehicleId, fuelingId) => {
+  const fuelings = getSortedFuelingsByVehicleId(vehicleId);
+
+  const index = fuelings.findIndex(
+    fueling => fueling.id === Number(fuelingId)
   );
+
+  if (index <= 0) {
+    return null;
+  }
+  
+  return fuelings[index - 1];
+};
+
+const validateOdometer = (
+  currentOdometer,
+  referenceFueling,
+  message
+) => {
+  if (
+    referenceFueling &&
+    currentOdometer < referenceFueling.odometer
+  ) {
+    throw new Error(message);
+  }
 };
 
 const calculateAverageConsumption = (vehicleId) => {
@@ -206,7 +262,9 @@ module.exports = {
   deleteFueling,
   updateFueling,
   getFuelingsByVehicleId,
+  getPreviousFueling,
   getSortedFuelingsByVehicleId,
+  getLastFuelingByVehicleId,
   calculateAverageConsumption,
   getVehicleStatistics,
   getVehicleDashboard
