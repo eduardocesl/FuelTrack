@@ -90,6 +90,12 @@ const updateFueling = (id, data) => {
     throw new Error('Fueling not found');
   }
 
+  if (fueling.vehicleId !== Number(data.vehicleId)) {
+    throw new Error(
+      'Vehicle cannot be changed for an existing fueling record'
+    );
+  }
+
   const previousFueling = getPreviousFueling(
     data.vehicleId,
     id
