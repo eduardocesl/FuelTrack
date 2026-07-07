@@ -1,6 +1,7 @@
 const repository = require('../repositories/fuelings.repository');
 const vehiclesRepository = require('../repositories/vehicles.repository');
 const FUEL_TYPES = require('../constants/fuelTypes');
+const ERROR_MESSAGES = require('../constants/errorMessages');
 
 const getFuelings = () => {
   return repository.getAllFuelings();
@@ -28,7 +29,7 @@ const createFueling = (data) => {
   );
 
   if (!vehicle) {
-    throw new Error('Vehicle not found');
+    throw new Error(ERROR_MESSAGES.VEHICLE_NOT_FOUND);
   }
 
   const lastFueling = getLastFuelingByVehicleId(data.vehicleId);
@@ -36,7 +37,7 @@ const createFueling = (data) => {
   validateOdometer(
     data.odometer,
     lastFueling,
-    'Odometer cannot be less than the last recorded fueling'
+    ERROR_MESSAGES.LAST_ODOMETER
   );
 
   const newFueling = {
@@ -67,7 +68,7 @@ const deleteFueling = (id) => {
   );
 
   if (!fueling) {
-    throw new Error('Fueling not found');
+    throw new Error(ERROR_MESSAGES.FUELING_NOT_FOUND);
   }
 
   const updatedFuelings = fuelings.filter(
@@ -87,12 +88,12 @@ const updateFueling = (id, data) => {
   );
 
   if (!fueling) {
-    throw new Error('Fueling not found');
+    throw new Error(ERROR_MESSAGES.FUELING_NOT_FOUND);
   }
 
   if (fueling.vehicleId !== Number(data.vehicleId)) {
     throw new Error(
-      'Vehicle cannot be changed for an existing fueling record'
+      ERROR_MESSAGES.INVALID_VEHICLE_CHANGE
     );
   }
 
@@ -104,7 +105,7 @@ const updateFueling = (id, data) => {
   validateOdometer(
   data.odometer,
   previousFueling,
-  'Odometer cannot be less than the previous fueling'
+  ERROR_MESSAGES.PREVIOUS_ODOMETER
 );
 
   const updatedFueling = {
@@ -184,7 +185,7 @@ const calculateAverageConsumption = (vehicleId) => {
 
   if (fuelings.length < 2) {
     throw new Error(
-      'At least two fueling records are required to calculate average consumption.'
+      ERROR_MESSAGES.INSUFFICIENT_FUELINGS
     );
   }
 
