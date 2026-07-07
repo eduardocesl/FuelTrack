@@ -2,6 +2,7 @@ const {
   getAllVehicles,
   createVehicle,
   getVehicleById,
+  ensureVehicleExists,
   deleteVehicle,
   updateVehicle
 } = require('../services/vehicles.service');
@@ -79,32 +80,26 @@ const getVehicle = (req, res) => {
 };
 
 const getVehicleFuelings = (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const vehicle = getVehicleById(id);
+    ensureVehicleExists(id);
 
-  if (!vehicle) {
+    const fuelings = getFuelingsByVehicleId(id);
+
+    return res.json(fuelings);
+  } catch (error) {
     return res.status(404).json({
-      message: 'Vehicle not found'
+      message: error.message
     });
   }
-
-  const fuelings = getFuelingsByVehicleId(id);
-
-  return res.json(fuelings);
 };
 
 const getVehicleConsumption = (req, res) => {
   try {
     const { id } = req.params;
 
-    const vehicle = getVehicleById(id);
-
-    if (!vehicle) {
-      return res.status(404).json({
-        message: 'Vehicle not found'
-      });
-    }
+    ensureVehicleExists(id);
 
     const consumption =
       calculateAverageConsumption(id);
@@ -113,7 +108,7 @@ const getVehicleConsumption = (req, res) => {
   } catch (error) {
     return res.status(400).json({
       message: error.message
-    });
+    });    
   }
 };
 

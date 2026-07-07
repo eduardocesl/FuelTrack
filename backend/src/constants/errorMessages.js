@@ -13,7 +13,10 @@ const ERROR_MESSAGES = {
     'Odometer cannot be less than the last recorded fueling',
 
   INSUFFICIENT_FUELINGS:
-    'At least two fueling records are required to calculate average consumption.'
+    'At least two fueling records are required to calculate average consumption.',
+
+  ALL_FIELDS_REQUIRED: 
+    'All fields are required'
 };
 
 module.exports = ERROR_MESSAGES;
