@@ -67,16 +67,17 @@ const updateVehicleController = (req, res) => {
 };
 
 const getVehicle = (req, res) => {
-  const { id } = req.params;
-  const vehicle = getVehicleById(id);
+  try {
+    const { id } = req.params;
 
-  if (!vehicle) {
+    const vehicle = ensureVehicleExists(id);
+
+    return res.json(vehicle);
+  } catch (error) {
     return res.status(404).json({
-      message: 'Vehicle not found'
+      message: error.message
     });
   }
-
-  return res.json(vehicle);
 };
 
 const getVehicleFuelings = (req, res) => {
