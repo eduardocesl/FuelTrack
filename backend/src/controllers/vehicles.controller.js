@@ -1,7 +1,6 @@
 const {
   getAllVehicles,
   createVehicle,
-  getVehicleById,
   ensureVehicleExists,
   deleteVehicle,
   updateVehicle
@@ -117,13 +116,7 @@ const getVehicleStatisticsController = (req, res) => {
   try {
     const { id } = req.params;
 
-    const vehicle = getVehicleById(id);
-
-    if (!vehicle) {
-      return res.status(404).json({
-        message: 'Vehicle not found'
-      });
-    }
+    ensureVehicleExists(id);
 
     const statistics = getVehicleStatistics(id);
 
@@ -139,18 +132,11 @@ const getVehicleDashboardController = (req, res) => {
   try {
     const { id } = req.params;
 
-    const vehicle = getVehicleById(id);
-
-    if (!vehicle) {
-      return res.status(404).json({
-        message: 'Vehicle not found'
-      });
-    }
+    ensureVehicleExists(id);
 
     const dashboard = getVehicleDashboard(id);
 
     return res.json(dashboard);
-
   } catch (error) {
     return res.status(400).json({
       message: error.message
