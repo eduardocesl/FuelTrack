@@ -19,33 +19,29 @@ const getFuelTypesController = (req, res) => {
   );
 };
 
-const createFuelingController = (req, res) => {
+const createFuelingController = (req, res, next) => {
   try {
     const fueling = createFueling(req.body);
 
     return res.status(201).json(fueling);
   } catch (error) {
-    return res.status(400).json({
-      message: error.message
-    });
+    next(error);
   }
 };
 
-const getFueling = (req, res) => {
-  const { id } = req.params;
+const getFueling = (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-  const fueling = getFuelingById(id);
+    const fueling = getFuelingById(id);
 
-  if (!fueling) {
-    return res.status(404).json({
-      message: 'Fueling not found'
-    });
+    return res.json(fueling);
+  } catch (error) {
+    next(error);
   }
-
-  return res.json(fueling);
 };
 
-const deleteFuelingController = (req, res) => {
+const deleteFuelingController = (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -53,13 +49,11 @@ const deleteFuelingController = (req, res) => {
 
     return res.json(deletedFueling);
   } catch (error) {
-    return res.status(404).json({
-      message: error.message
-    });
+    next(error);
   }
 };
 
-const updateFuelingController = (req, res) => {
+const updateFuelingController = (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -67,14 +61,7 @@ const updateFuelingController = (req, res) => {
 
     return res.json(updatedFueling);
   } catch (error) {
-    const status =
-      error.message === 'Fueling not found'
-        ? 404
-        : 400;
-
-    return res.status(status).json({
-      message: error.message
-    });
+    next(error);
   }
 };
 

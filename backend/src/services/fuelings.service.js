@@ -1,3 +1,4 @@
+const AppError = require('../errors/AppError');
 const repository = require('../repositories/fuelings.repository');
 const vehiclesRepository = require('../repositories/vehicles.repository');
 const FUEL_TYPES = require('../constants/fuelTypes');
@@ -14,9 +15,18 @@ const getFuelTypes = () => {
 const getFuelingById = (id) => {
   const fuelings = repository.getAllFuelings();
 
-  return fuelings.find(
+  const fueling = fuelings.find(
     fueling => fueling.id === Number(id)
   );
+
+  if (!fueling) {
+    throw new AppError(
+      ERROR_MESSAGES.FUELING_NOT_FOUND,
+      404
+    );
+  }
+
+  return fueling;
 };
 
 const createFueling = (data) => {
@@ -29,8 +39,11 @@ const createFueling = (data) => {
   );
 
   if (!vehicle) {
-    throw new Error(ERROR_MESSAGES.VEHICLE_NOT_FOUND);
-  }
+  throw new AppError(
+    ERROR_MESSAGES.VEHICLE_NOT_FOUND,
+    404
+  );
+}
 
   const lastFueling = getLastFuelingByVehicleId(data.vehicleId);
 
@@ -68,8 +81,11 @@ const deleteFueling = (id) => {
   );
 
   if (!fueling) {
-    throw new Error(ERROR_MESSAGES.FUELING_NOT_FOUND);
-  }
+  throw new AppError(
+    ERROR_MESSAGES.FUELING_NOT_FOUND,
+    404
+  );
+}
 
   const updatedFuelings = fuelings.filter(
     f => f.id !== Number(id)
@@ -88,14 +104,18 @@ const updateFueling = (id, data) => {
   );
 
   if (!fueling) {
-    throw new Error(ERROR_MESSAGES.FUELING_NOT_FOUND);
-  }
+  throw new AppError(
+    ERROR_MESSAGES.FUELING_NOT_FOUND,
+    404
+  );
+}
 
-  if (fueling.vehicleId !== Number(data.vehicleId)) {
-    throw new Error(
-      ERROR_MESSAGES.INVALID_VEHICLE_CHANGE
-    );
-  }
+if (fueling.vehicleId !== Number(data.vehicleId)) {
+  throw new AppError(
+    ERROR_MESSAGES.INVALID_VEHICLE_CHANGE,
+    400
+  );
+}
 
   const previousFueling = getPreviousFueling(
     data.vehicleId,
@@ -176,7 +196,10 @@ const validateOdometer = (
     referenceFueling &&
     currentOdometer < referenceFueling.odometer
   ) {
-    throw new Error(message);
+    throw new AppError(
+      message,
+      400
+    );
   }
 };
 
@@ -184,8 +207,9 @@ const calculateAverageConsumption = (vehicleId) => {
   const fuelings = getSortedFuelingsByVehicleId(vehicleId);
 
   if (fuelings.length < 2) {
-    throw new Error(
-      ERROR_MESSAGES.INSUFFICIENT_FUELINGS
+    throw new AppError(
+      ERROR_MESSAGES.INSUFFICIENT_FUELINGS,
+      400
     );
   }
 
