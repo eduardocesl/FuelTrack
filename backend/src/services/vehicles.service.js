@@ -1,5 +1,6 @@
 const ERROR_MESSAGES = require('../constants/errorMessages');
 const repository = require('../repositories/vehicles.repository');
+const AppError = require('../errors/AppError');
 
 
 const getAllVehicles = () => {
@@ -34,7 +35,7 @@ const deleteVehicle = (id) => {
   const vehicle = vehicles.find(v => v.id === Number(id));
 
   if (!vehicle) {
-    throw new Error(ERROR_MESSAGES.VEHICLE_NOT_FOUND);
+    throw new AppError(ERROR_MESSAGES.VEHICLE_NOT_FOUND, 404);
   }
 
   const updated = vehicles.filter(
@@ -52,7 +53,7 @@ const updateVehicle = (id, data) => {
   const vehicle = vehicles.find(v => v.id === Number(id));
 
   if (!vehicle) {
-    throw new Error(ERROR_MESSAGES.VEHICLE_NOT_FOUND);
+    throw new AppError(ERROR_MESSAGES.VEHICLE_NOT_FOUND, 404);
   }
 
   const {
@@ -63,7 +64,7 @@ const updateVehicle = (id, data) => {
   } = data;
 
   if (!brand || !model || !manufactureYear || !modelYear) {
-    throw new Error(ERROR_MESSAGES.ALL_FIELDS_REQUIRED);
+    throw new AppError(ERROR_MESSAGES.ALL_FIELDS_REQUIRED, 400);
   }
 
   vehicle.brand = brand;
@@ -92,7 +93,7 @@ const ensureVehicleExists = (id) => {
   const vehicle = getVehicleById(id);
 
   if (!vehicle) {
-    throw new Error(ERROR_MESSAGES.VEHICLE_NOT_FOUND);
+    throw new AppError(ERROR_MESSAGES.VEHICLE_NOT_FOUND, 404);
   }
 
   return vehicle;

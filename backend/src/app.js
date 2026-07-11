@@ -10,11 +10,11 @@ app.use(express.json());
 // Routes
 app.use('/fuel', fuelRoutes);
 app.use('/vehicles', vehicleRoutes);
-app.use(errorHandler);
-
 
 app.get('/', (req, res) => {
   res.json({ message: 'FuelTrack API funcionando' });
 });
+
+app.use(errorHandler);
 
 module.exports = app;

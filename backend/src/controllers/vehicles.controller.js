@@ -65,7 +65,7 @@ const updateVehicleController = (req, res) => {
   }
 };
 
-const getVehicle = (req, res) => {
+const getVehicle = (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -73,13 +73,11 @@ const getVehicle = (req, res) => {
 
     return res.json(vehicle);
   } catch (error) {
-    return res.status(404).json({
-      message: error.message
-    });
+    next(error);
   }
 };
 
-const getVehicleFuelings = (req, res) => {
+const getVehicleFuelings = (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -89,13 +87,11 @@ const getVehicleFuelings = (req, res) => {
 
     return res.json(fuelings);
   } catch (error) {
-    return res.status(404).json({
-      message: error.message
-    });
+    next(error);
   }
 };
 
-const getVehicleConsumption = (req, res) => {
+const getVehicleConsumption = (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -106,13 +102,11 @@ const getVehicleConsumption = (req, res) => {
 
     return res.json(consumption);
   } catch (error) {
-    return res.status(400).json({
-      message: error.message
-    });    
+    next(error);
   }
 };
 
-const getVehicleStatisticsController = (req, res) => {
+const getVehicleStatisticsController = (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -122,13 +116,11 @@ const getVehicleStatisticsController = (req, res) => {
 
     return res.json(statistics);
   } catch (error) {
-    return res.status(400).json({
-      message: error.message
-    });
+    next(error);
   }
 };
 
-const getVehicleDashboardController = (req, res) => {
+const getVehicleDashboardController = (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -138,9 +130,7 @@ const getVehicleDashboardController = (req, res) => {
 
     return res.json(dashboard);
   } catch (error) {
-    return res.status(400).json({
-      message: error.message
-    });
+    next(error);
   }
 };
 
