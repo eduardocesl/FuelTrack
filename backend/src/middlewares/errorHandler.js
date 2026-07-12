@@ -1,5 +1,3 @@
-const AppError = require('../errors/AppError');
-
 const errorHandler = (
   err,
   req,
@@ -7,16 +5,12 @@ const errorHandler = (
   next
 ) => {
 
-  if (err instanceof AppError) {
-    return res.status(err.statusCode).json({
-      message: err.message
-    });
-  }
-
   console.error(err);
 
-  return res.status(500).json({
-    message: 'Internal Server Error'
+  const statusCode = err.statusCode || 500;
+
+  return res.status(statusCode).json({
+    message: err.message || 'Internal Server Error'
   });
 };
 
