@@ -6,7 +6,7 @@
     "fuelType": "Gasoline",
     "liters": 50,
     "totalCost": 300,
-    "odometer": 53000
+    "odometer": 54500
   },
   {
     "id": 2,
@@ -34,5 +34,14 @@
     "liters": 25,
     "totalCost": 180,
     "odometer": 55800
+  },
+  {
+    "id": 5,
+    "vehicleId": 1,
+    "date": "2026-06-25",
+    "fuelType": "Gasoline",
+    "liters": 25,
+    "totalCost": 180,
+    "odometer": 57200
   }
 ]

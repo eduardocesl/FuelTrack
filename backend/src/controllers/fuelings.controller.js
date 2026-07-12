@@ -21,9 +21,9 @@ const getFuelTypesController = (req, res) => {
 
 const createFuelingController = (req, res, next) => {
   try {
-    const fueling = createFueling(req.body);
-
-    return res.status(201).json(fueling);
+    return res.status(201).json(
+      createFueling(req.body)
+    );
   } catch (error) {
     next(error);
   }
@@ -51,11 +51,9 @@ const deleteFuelingController = (req, res, next) => {
 
 const updateFuelingController = (req, res, next) => {
   try {
-    const { id } = req.params;
-
-    const updatedFueling = updateFueling(id, req.body);
-
-    return res.json(updatedFueling);
+    return res.json(
+      updateFueling(req.params.id, req.body)
+    );
   } catch (error) {
     next(error);
   }

@@ -19,49 +19,34 @@ const getVehicles = (req, res) => {
 
 const createVehicleController = (req, res, next) => {
   try {
-    const vehicle = createVehicle(req.body);
-
-    return res.status(201).json(vehicle);
-  } catch (error) {
-    return res.status(400).json({
-      message: error.message
-    });
-  }
-};
-
-const deleteVehicleController = (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const deletedVehicle = deleteVehicle(id);
-
-    return res.json(deletedVehicle);
-  } catch (error) {
-    return res.status(404).json({
-      message: error.message
-    });
-  }
-};
-
-const updateVehicleController = (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const updatedVehicle = updateVehicle(
-      id,
-      req.body
+    return res.status(201).json(
+      createVehicle(req.body)
     );
-
-    return res.json(updatedVehicle);
   } catch (error) {
-    const status =
-      error.message === 'Vehicle not found'
-        ? 404
-        : 400;
+    next(error);
+  }
+};
 
-    return res.status(status).json({
-      message: error.message
-    });
+const deleteVehicleController = (req, res, next) => {
+  try {
+    return res.json(
+      deleteVehicle(req.params.id)
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateVehicleController = (req, res, next) => {
+  try {
+    return res.json(
+      updateVehicle(
+        req.params.id,
+        req.body
+      )
+    );
+  } catch (error) {
+    next(error);
   }
 };
 

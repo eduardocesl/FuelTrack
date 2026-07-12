@@ -8,3 +8,19 @@
 
 
 **Por:** Eduardo Lima.
+
+## Sobre o projeto
+
+O FuelTrack é uma aplicação desenvolvida com o objetivo de registrar abastecimentos de veículos e acompanhar informações como consumo médio, histórico de abastecimentos e estatísticas de utilização.
+
+Este projeto foi desenvolvido como parte dos meus estudos em desenvolvimento Full Stack, com foco na construção de uma API REST utilizando Node.js e Express, seguindo uma arquitetura organizada em camadas (Controllers, Services, Repositories e Middlewares).
+
+O objetivo é evoluir o projeto até uma aplicação completa, composta por backend e frontend em React.
+
+## Tecnologias
+
+- Node.js
+- Express
+- JavaScript
+- Joi
+- JSON File Storage
