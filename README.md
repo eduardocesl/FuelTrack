@@ -103,6 +103,7 @@ O servidor será iniciado localmente e a API estará disponível para consumo.
 
 A API pode ser testada utilizando ferramentas como:
 
+* Flashpost
 * Postman
 * Insomnia
 * Thunder Client (VS Code)
