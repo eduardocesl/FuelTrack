@@ -1,8 +1,10 @@
+import Layout from "./components/Layout/Layout";
+
 function App() {
   return (
-    <main>
+    <Layout>
       <h1>FuelTrack</h1>
-    </main>
+    </Layout>
   );
 }
 
