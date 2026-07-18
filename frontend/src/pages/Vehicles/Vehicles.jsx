@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getVehicles } from "../../services/api";
+import VehicleCard from "../../components/VehicleCard/VehicleCard";
+import "./Vehicles.css";
 
 function Vehicles() {
   const [vehicles, setVehicles] = useState([]);
@@ -17,32 +19,23 @@ function Vehicles() {
     loadVehicles();
   }, []);
 
-return (
-  <>
+  return (
+  <div className="vehicles-page">
     <h1>Vehicles</h1>
 
     {vehicles.length === 0 ? (
       <p>No vehicles registered.</p>
     ) : (
-      <ul>
+      <div className="vehicles-grid">
         {vehicles.map((vehicle) => (
-          <li key={vehicle.id}>
-  <strong>
-    {vehicle.brand} {vehicle.model}
-  </strong>
-
-  <br />
-
-  Manufacture Year: {vehicle.manufactureYear}
-
-  <br />
-
-  Model Year: {vehicle.modelYear}
-</li>
+          <VehicleCard
+            key={vehicle.id}
+            vehicle={vehicle}
+          />
         ))}
-      </ul>
+      </div>
     )}
-  </>
+  </div>
 );
 }
 

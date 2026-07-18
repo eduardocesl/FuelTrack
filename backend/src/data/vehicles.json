@@ -12,5 +12,12 @@
     "model": "320i",
     "manufactureYear": 2024,
     "modelYear": 2025
+  },
+  {
+    "id": 3,
+    "brand": "FIAT",
+    "model": "Argo",
+    "manufactureYear": 2021,
+    "modelYear": 2022
   }
 ]
