@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { getVehicles } from "../../services/api";
 import VehicleCard from "../../components/VehicleCard/VehicleCard";
 import "./Vehicles.css";
+import VehicleModal from "../../components/VehicleModal/VehicleModal";
 
 function Vehicles() {
   const [vehicles, setVehicles] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function loadVehicles() {
@@ -20,23 +22,39 @@ function Vehicles() {
   }, []);
 
   return (
-  <div className="vehicles-page">
-    <h1>Vehicles</h1>
+    <div className="vehicles-page">
+      <div className="vehicles-header">
+        <h1>Vehicles</h1>
 
-    {vehicles.length === 0 ? (
-      <p>No vehicles registered.</p>
-    ) : (
-      <div className="vehicles-grid">
-        {vehicles.map((vehicle) => (
-          <VehicleCard
-            key={vehicle.id}
-            vehicle={vehicle}
-          />
-        ))}
+        <button
+          onClick={() => setIsModalOpen(true)}
+        >
+          + New Vehicle
+        </button>
       </div>
-    )}
-  </div>
-);
+
+      <VehicleModal
+        isOpen={isModalOpen}
+        onClose={() =>
+          setIsModalOpen(false)
+        }
+      />
+
+
+      {vehicles.length === 0 ? (
+        <p>No vehicles registered.</p>
+      ) : (
+        <div className="vehicles-grid">
+          {vehicles.map((vehicle) => (
+            <VehicleCard
+              key={vehicle.id}
+              vehicle={vehicle}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Vehicles;

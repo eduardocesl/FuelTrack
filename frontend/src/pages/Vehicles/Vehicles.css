@@ -16,3 +16,35 @@
 
   gap: 1.5rem;
 }
+
+.vehicles-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 2rem;
+}
+
+.vehicles-header button {
+  background-color: var(--primary);
+
+  color: white;
+
+  border: none;
+
+  padding: .75rem 1.25rem;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-size: .95rem;
+
+  transition: .2s;
+}
+
+.vehicles-header button:hover {
+  opacity: .85;
+}
