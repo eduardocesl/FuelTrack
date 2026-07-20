@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createVehicle } from "../../services/api";
 import "./VehicleModal.css";
 
 function VehicleModal({
@@ -13,19 +14,25 @@ function VehicleModal({
     });
 
     function handleChange(event) {
-        const { name, value } = event.target;
+        const { name, value, type } = event.target;
 
         setFormData((previousData) => ({
             ...previousData,
-            [name]: value,
+            [name]: type === "number" ? Number(value) : value,
         }));
 
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
 
-        console.log(formData);
+        try {
+            const newVehicle = await createVehicle(formData);
+
+            console.log(newVehicle);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     if (!isOpen) {

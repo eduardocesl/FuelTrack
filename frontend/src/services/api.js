@@ -9,3 +9,21 @@ export async function getVehicles() {
 
   return response.json();
 }
+
+export async function createVehicle(vehicleData) {
+  const response = await fetch(`${API_URL}/vehicles`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(vehicleData),
+  });
+
+  console.log(response.status);
+
+  if (!response.ok) {
+    throw new Error("Failed to create vehicle");
+  }
+
+  return response.json();
+}
