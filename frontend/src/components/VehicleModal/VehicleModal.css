@@ -47,3 +47,43 @@
 
   cursor: pointer;
 }
+
+.modal-content form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: .75rem;
+}
+
+.modal-content label {
+  font-weight: 600;
+
+  text-align: left;
+}
+
+.modal-content input {
+  padding: .75rem;
+
+  border-radius: 8px;
+
+  border: 1px solid var(--border);
+
+  background: var(--background);
+
+  color: var(--text);
+}
+
+.modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 1rem;
+
+  margin-top: 1rem;
+}
+
+.modal-actions button {
+  min-width: 100px;
+}
