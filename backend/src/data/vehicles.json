@@ -54,5 +54,19 @@
     "model": "Pulse",
     "manufactureYear": 2024,
     "modelYear": 2025
+  },
+  {
+    "id": 9,
+    "brand": "Mercedes",
+    "model": "A45",
+    "manufactureYear": 2019,
+    "modelYear": 2020
+  },
+  {
+    "id": 10,
+    "brand": "Renault",
+    "model": "Sandero",
+    "manufactureYear": 2015,
+    "modelYear": 2016
   }
 ]

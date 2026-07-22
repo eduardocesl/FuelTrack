@@ -14,6 +14,15 @@ function VehicleModal({
         modelYear: "",
     });
 
+    function resetForm() {
+        setFormData({
+            brand: "",
+            model: "",
+            manufactureYear: "",
+            modelYear: "",
+        });
+    }
+
     function handleChange(event) {
         const { name, value, type } = event.target;
 
@@ -31,6 +40,8 @@ function VehicleModal({
             const newVehicle = await createVehicle(formData);
 
             onVehicleCreated(newVehicle);
+
+            resetForm();
 
             onClose();
         } catch (error) {
@@ -99,7 +110,10 @@ function VehicleModal({
 
                         <button
                             type="button"
-                            onClick={onClose}
+                            onClick={() => {
+                                resetForm();
+                                onClose();
+                            }}
                         >
                             Cancel
                         </button>
