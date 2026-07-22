@@ -27,3 +27,19 @@ export async function createVehicle(vehicleData) {
 
   return response.json();
 }
+
+export async function updateVehicle(id, vehicleData) {
+  const response = await fetch(`${API_URL}/vehicles/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(vehicleData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update vehicle");
+  }
+
+  return response.json();
+}

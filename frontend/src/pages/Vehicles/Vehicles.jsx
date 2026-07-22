@@ -6,6 +6,7 @@ import VehicleModal from "../../components/VehicleModal/VehicleModal";
 
 function Vehicles() {
   const [vehicles, setVehicles] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -21,11 +22,31 @@ function Vehicles() {
     loadVehicles();
   }, []);
 
-  function handleVehicleCreated(newVehicle) {
-    setVehicles((previousVehicles) => [
-      ...previousVehicles,
-      newVehicle,
-    ]);
+  function handleVehicleCreated(savedVehicle) {
+    setVehicles((previousVehicles) => {
+      const vehicleExists = previousVehicles.some(
+        (vehicle) => vehicle.id === savedVehicle.id
+      );
+
+      if (vehicleExists) {
+        return previousVehicles.map((vehicle) =>
+          vehicle.id === savedVehicle.id
+            ? savedVehicle
+            : vehicle
+        );
+      }
+
+      return [
+        ...previousVehicles,
+        savedVehicle,
+      ];
+    });
+  }
+
+  function handleEditVehicle(vehicle) {
+    setSelectedVehicle(vehicle);
+
+    setIsModalOpen(true);
   }
 
   return (
@@ -42,8 +63,12 @@ function Vehicles() {
 
       <VehicleModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedVehicle(null);
+        }}
         onVehicleCreated={handleVehicleCreated}
+        vehicle={selectedVehicle}
       />
 
 
@@ -55,6 +80,7 @@ function Vehicles() {
             <VehicleCard
               key={vehicle.id}
               vehicle={vehicle}
+              onEdit={handleEditVehicle}
             />
           ))}
         </div>

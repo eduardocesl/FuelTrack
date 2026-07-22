@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { createVehicle } from "../../services/api";
+import { useEffect, useState } from "react";
+import { createVehicle, updateVehicle } from "../../services/api";
 import "./VehicleModal.css";
 
 function VehicleModal({
     isOpen,
     onClose,
     onVehicleCreated,
+    vehicle
 }) {
     const [formData, setFormData] = useState({
         brand: "",
@@ -33,13 +34,36 @@ function VehicleModal({
 
     }
 
+    useEffect(() => {
+        if (vehicle) {
+            setFormData({
+                brand: vehicle.brand,
+                model: vehicle.model,
+                manufactureYear: vehicle.manufactureYear,
+                modelYear: vehicle.modelYear,
+            });
+        } else {
+            resetForm();
+        }
+    }, [vehicle]);
+
+
     async function handleSubmit(event) {
         event.preventDefault();
 
         try {
-            const newVehicle = await createVehicle(formData);
+            let savedVehicle;
 
-            onVehicleCreated(newVehicle);
+            if (vehicle) {
+                savedVehicle = await updateVehicle(
+                    vehicle.id,
+                    formData
+                );
+            } else {
+                savedVehicle = await createVehicle(formData);
+            }
+
+            onVehicleCreated(savedVehicle);
 
             resetForm();
 

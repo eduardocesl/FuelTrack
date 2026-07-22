@@ -1,6 +1,9 @@
 import "./VehicleCard.css";
 
-function VehicleCard({ vehicle }) {
+function VehicleCard({
+  vehicle,
+  onEdit
+}) {
   return (
     <div className="vehicle-card">
       <h3>
@@ -16,6 +19,9 @@ function VehicleCard({ vehicle }) {
         <strong>Model Year:</strong>{" "}
         {vehicle.modelYear}
       </p>
+      <button onClick={() => onEdit(vehicle)}>
+        Edit
+      </button>
     </div>
   );
 }

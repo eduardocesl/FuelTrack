@@ -15,7 +15,7 @@
   },
   {
     "id": 3,
-    "brand": "FIAT",
+    "brand": "Fiat",
     "model": "Argo",
     "manufactureYear": 2021,
     "modelYear": 2022
@@ -68,5 +68,12 @@
     "model": "Sandero",
     "manufactureYear": 2015,
     "modelYear": 2016
+  },
+  {
+    "id": 11,
+    "brand": "Audi",
+    "model": "A4",
+    "manufactureYear": 2018,
+    "modelYear": 2018
   }
 ]
