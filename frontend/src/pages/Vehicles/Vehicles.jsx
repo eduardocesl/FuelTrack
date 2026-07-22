@@ -21,6 +21,13 @@ function Vehicles() {
     loadVehicles();
   }, []);
 
+  function handleVehicleCreated(newVehicle) {
+    setVehicles((previousVehicles) => [
+      ...previousVehicles,
+      newVehicle,
+    ]);
+  }
+
   return (
     <div className="vehicles-page">
       <div className="vehicles-header">
@@ -35,9 +42,8 @@ function Vehicles() {
 
       <VehicleModal
         isOpen={isModalOpen}
-        onClose={() =>
-          setIsModalOpen(false)
-        }
+        onClose={() => setIsModalOpen(false)}
+        onVehicleCreated={handleVehicleCreated}
       />
 
 

@@ -33,5 +33,26 @@
     "model": "Maverick",
     "manufactureYear": 2024,
     "modelYear": 2025
+  },
+  {
+    "id": 6,
+    "brand": "Fiat",
+    "model": "147",
+    "manufactureYear": 1976,
+    "modelYear": 1977
+  },
+  {
+    "id": 7,
+    "brand": "Fiat",
+    "model": "147",
+    "manufactureYear": 1976,
+    "modelYear": 1977
+  },
+  {
+    "id": 8,
+    "brand": "Fiat",
+    "model": "Pulse",
+    "manufactureYear": 2024,
+    "modelYear": 2025
   }
 ]

@@ -4,7 +4,8 @@ import "./VehicleModal.css";
 
 function VehicleModal({
     isOpen,
-    onClose
+    onClose,
+    onVehicleCreated,
 }) {
     const [formData, setFormData] = useState({
         brand: "",
@@ -29,7 +30,9 @@ function VehicleModal({
         try {
             const newVehicle = await createVehicle(formData);
 
-            console.log(newVehicle);
+            onVehicleCreated(newVehicle);
+
+            onClose();
         } catch (error) {
             console.error(error);
         }
